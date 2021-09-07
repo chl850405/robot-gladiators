@@ -7,6 +7,38 @@ var randomNumber = function (min, max) {
     return value;
 };
 
+//function to check if player wants to fight or skip
+var fightOrSkip =function() {
+	//ask player if they'd like to fight or skip using fightOrSkip function
+	var promptFight = window.prompt('Would you like to FIGHT or SKIP the battle? Enter "FIGHT" or "SKIP" to choose.');
+
+    //validate prompt answer
+    if (promptFight === "" || promptFight === null) {
+        window.alert("You need to provide a valid answer! Please try again");
+        //use return to call it again and stop the rest of this function from running
+        return fightOrSkip();
+    }
+
+//convert promptFight to all lowercase so we can check with less options
+promptFight = promptFight.toLowerCase();
+
+if (promptFight === "skip") {
+    //confirm player wants to skip
+    var confirmSkip = window.confirm("Are you sure you'd like to quit?")
+
+    //if yes (true), leave fight
+    if (confirmSkip) {
+        window.alert(playerInfo.name + "Has decided to skip fight. Goodbye!");
+        //subtract money from playerMoney for skipping, but don't let them go into the negative
+        playerInfo.money = Math.max(0, playerInfo.money - 10);
+
+        //return tur if player wants to leave
+        return true;
+    }
+  }
+	return false;
+};
+
 // fight function (now with parameter for enemy's object holding name, health,and attack)
 var fight = function(enemy) {
     while (playerInfo.health > 0 && enemy.health > 0) {
